@@ -12,7 +12,9 @@
 注释：
 
 ```{r Pseudo-Facebook User Data}
-
+getwd()
+list.files()
+pf <- read.csv('pseudo_facebook.tsv', sep = '\t')
 ```
 
 ***
@@ -23,6 +25,10 @@
 ```{r Histogram of Users\' Birthdays}
 install.packages('ggplot2')
 library(ggplot2)
+
+names(pf)
+qplot(x=dob_day, data=pf) + 
+  scale_x_continuous(breaks = 1:31)
 ```
 
 ***
