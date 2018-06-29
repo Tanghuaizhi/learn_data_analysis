@@ -278,6 +278,13 @@ summary(sqrt(pf$friend_count))
 注释：
 
 ```{r Add a Scaling Layer}
+logScale <- qplot(x = log10(friend_count), data = pf)
+
+countScale <- ggplot(aes(x = friend_count), data = pf) + 
+  geom_histogram() +
+  scale_x_log10()
+
+grid.arrange(logScale, countScale, ncol = 2)
 
 ```
 
@@ -287,17 +294,50 @@ summary(sqrt(pf$friend_count))
 ### 频数多边图
 
 ```{r Frequency Polygons}
+qplot(x = friend_count, data = subset(pf, !is.na(gender)), binwidth = 10) +
+  scale_x_continuous(lim = c(0,1000), breaks = seq(0, 1000, 50)) + facet_wrap(~gender)
 
+qplot(x = friend_count, y = ..count../sum(..count..), 
+      data = subset(pf, !is.na(gender)), 
+      xlab = 'Friend Count',
+      ylab = 'Proportion of Users with that friend count',
+      binwidth = 10, geom = 'freqpoly', color = gender) +
+  scale_x_continuous(lim = c(300,600), breaks = seq(300, 600, 50))
 ```
 
 ***
 
 ### 网页上的赞数
-注释：
+注释：使用频数多边形确定哪个性别在万维网 (www_likes) 上获得的点赞数量更多。你的第一个图不必是定稿。你可以不断调整 x 轴上的界限和间距，直到你满意。 
 
 ```{r Likes on the Web}
+qplot(x = www_likes, data = pf)
+
+qplot(x = www_likes, data = subset(pf, !is.na(gender)), binwidth = 10) +
+  scale_x_continuous(lim = c(0,500), breaks = seq(0, 500, 50)) + facet_wrap(~gender)
+
+qplot(x = www_likes, y = ..count../sum(..count..),
+      xlab = 'www_likes',
+      ylab = 'Proportion',
+      data = subset(pf, !is.na(gender)), 
+      geom = 'freqpoly', color = gender) +
+  scale_x_continuous() +
+  scale_x_log10()
+
 
 ```
+
+
+
+第一个问题是：在整个数据集中，对于男性有多少个 www_likes？
+第二个问题是：哪个性别的 www_likes 总数更多？
+```{r}
+by(pf$www_likes, pf$gender, sum)
+```
+
+
+
+
 
 ***
 
