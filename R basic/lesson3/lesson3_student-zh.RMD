@@ -345,13 +345,26 @@ by(pf$www_likes, pf$gender, sum)
 注释：
 
 ```{r Box Plots}
+qplot(x = gender, y = friend_count, 
+      data = subset(pf, !is.na(gender)), 
+      geom = 'boxplot')
 
 ```
 
 #### 调整代码，关注朋友数量在 0 到 1000 之间的用户。
+注意：用ylim或scale_y_continuous时，实际是截取了数据后的计算结果。如果不想影响原始总体数据，更好的方式是用coord Cartesian层
+
 
 ```{r}
+qplot(x = gender, y = friend_count, 
+      data = subset(pf, !is.na(gender)), 
+      geom = 'boxplot') +
+  scale_y_continuous(lim = c(0,1000))
 
+qplot(x = gender, y = friend_count, 
+      data = subset(pf, !is.na(gender)), 
+      geom = 'boxplot') +
+  coord_cartesian(ylim = c(0,1000))
 ```
 
 ***
@@ -360,6 +373,12 @@ by(pf$www_likes, pf$gender, sum)
 注释：
 
 ```{r Box Plots, Quartiles, and Friendships}
+qplot(x = gender, y = friend_count, 
+      data = subset(pf, !is.na(gender)), 
+      geom = 'boxplot') +
+  coord_cartesian(ylim = c(0,250))
+
+by(pf$friend_count, pf$gender, summary)
 
 ```
 
@@ -368,10 +387,17 @@ by(pf$www_likes, pf$gender, sum)
 #### 写出可以验证答案的一些方法。
 回复：
 ```{r Friend Requests by Gender}
+qplot(x = gender, y = friendships_initiated, 
+      data = subset(pf, !is.na(gender)), 
+      geom = 'boxplot') +
+  coord_cartesian(ylim = c(0,150))
+
+by(pf$friendships_initiated, pf$gender, summary)
+
 
 ```
 
-回复：
+回复：female
 
 ***
 
@@ -379,7 +405,15 @@ by(pf$www_likes, pf$gender, sum)
 注释：
 
 ```{r Getting Logical}
+summary(pf$mobile_likes)
 
+summary(pf$mobile_likes > 0)
+
+mobil_check_in <- NA
+pf$mobile_check_in <- ifelse(pf$mobile_likes > 0, 1, 0)
+pf$mobile_check_in <- factor(pf$mobile_check_in)
+summary(pf$mobile_check_in)
+sum(pf$mobile_check_in == 1) / length(pf$mobile_check_in)
 ```
 
 回复：
@@ -389,6 +423,23 @@ by(pf$www_likes, pf$gender, sum)
 ### 分析一个变量
 思考：
 
+单变量：
+1、直方图显示
+2、分类直方图
+3、频率分布
+4、频率比例
+5、箱线图
+
+观察单个变量：
+1、观察变量的类型
+2、了解其分布形式
+3、是否有缺失值、异常值
+
+基本工具：
+直方图、箱线图、频数多边形
+
+基本的图形调整：
+bin、x轴、数据类型等
 ***
 
 点击 **KnitHTML** 查看你的成果和这节课的 html 页面、
