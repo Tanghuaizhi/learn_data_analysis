@@ -12,7 +12,8 @@ Notes:
 Notes:
 
 ```{r Scatterplots}
-
+getwd()
+dir()
 ```
 
 ***

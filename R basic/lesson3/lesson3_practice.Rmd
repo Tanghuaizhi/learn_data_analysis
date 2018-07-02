@@ -1,0 +1,267 @@
+---
+title: "lesson3_practice"
+author: "ATango"
+date: "2018年6月30日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## L1：说明
+你可能会发现这节课和之前的课程有些不同。在本课程中，你将在 R Studio，而非浏览器中进行编程，而且几乎所有的编程作业都不会记分。
+
+**R 编程应该是交互式的，因此，我们希望你在计算机上亲自体验。**
+
+探索性数据分析也要求你探索数据，所以通常不会有正确或错误的答案。我们希望你在创建图形时，自行做出多项决定。
+
+为了完成每一个任务，你将在 RStudio 中创建图形，然后将所有代码复制并粘贴至浏览器中，然后提交。由于创建有效图形的方法有很多，因此你的代码通常不会自动评分。你可以通过观看解决方案视频来检查你的答案。
+
+少数任务会自动评分。你可以通过每个编程任务的说明来了解任务是否会自动评分。
+
+提交代码看似无用，但是，这么做之所以重要是有原因的。
+
+  1. 你可以帮助我们改进每节课的反馈消息以及课程中存在的问题。
+  2. 讲师们将密切关注你提交的内容，以便向所有学员提供更好的课程体验。
+我们希望你喜欢这一个新的课程体验。
+
+## L2：钻石
+Note：
+在此提醒：你可以使用这些命令加载钻石数据集。 
+library(ggplot2) #必须先加载 ggplot 包 
+data(diamonds) #加载钻石数据集，ggplot 包自带该数据集 
+
+每次启动 RStudio 时，你需要运行这些命令来访问钻石数据集。RStudio不会记住你加载过的包和数据集，除非你更改了首选项或保存了工作空间。 
+
+你应注意的是：钻石数据集在工作空间内被列为一个 'Promise'。这是 R中的一个特殊对象，你需要在数据上运行一个命令，来完全加载数据集。尝试运行一个摘要。 
+summary(diamonds)
+
+R 中自带一些数据集。你可以输入命令 data(DATA_SET_NAME) 来加载这些数据集。
+
+你可以输入 ?diamonds，以了解更多关于钻石数据集的信息。
+
+阅读帮助文件，确定钻石数据集的最佳颜色。当你运行 diamonds$color 时，你将注意到颜色级别被设置为 D < E < F < ...
+
+这不是指 D 为最差的颜色，而是表明各种颜色的排序。
+
+```{r prepare work}
+getwd()
+dir()
+```
+
+加载ggplot自带的**钻石**数据集
+```{r load data}
+library(ggplot2)
+data("diamonds")
+```
+
+```{r 观察数据}
+str(diamonds)
+head(diamonds)
+```
+
+## L3：价格直方图
+Note：Create a histogram of the price of all the diamonds in the diamond data set.
+
+```{r price histogram}
+qplot(x = price, data = diamonds, bins=50,
+      xlab = 'Price',
+      ylab = 'Count')
+```
+
+
+## L4：价格直方图小结
+问：描述其规律
+
+答：长尾分布。中位数是2401；平均值是3933。
+
+```{r Summary of price}
+summary(diamonds$price)
+```
+
+
+## L5：钻石数量
+问：多少钻石价值小于500？小于250？大于15000？
+
+答：1729;0;1656
+
+```{r count of diamands in different cost}
+length(diamonds$price)
+sum(diamonds$price < 500)
+sum(diamonds$price < 250)
+sum(diamonds$price >= 15000)
+```
+
+## L6：廉价钻石
+问：
+Explore the largest peak in the price histogram you created earlier.
+
+Try limiting the x-axis, altering the bin width, and setting different breaks on the x-axis.
+
+There won’t be a solution video for this question so go to the discussions to share your thoughts and discover what other people find.
+
+You can save images by using the ggsave() command.
+ggsave() will save the last plot created.
+For example...
+                 qplot(x = price, data = diamonds)
+                 ggsave('priceHistogram.png')
+
+ggsave currently recognises the extensions eps/ps, tex (pictex), pdf, jpeg, tiff, png, bmp, svg and wmf (windows only).
+
+答：数量最多的钻石大概在600元左右
+
+
+```{r low price}
+qplot(x = price, data = diamonds, binwidth = 10,
+      xlab = 'Price',
+      ylab = 'Count') + 
+  scale_x_continuous(limits = c(400, 800), breaks = c(400, 800, 100))
+
+qplot(x = price, data = diamonds,
+      xlab = 'Price',
+      ylab = 'Count') + 
+  coord_cartesian(xlim = c(0, 2000))
+
+ggsave('priceHistogram.png')
+```
+
+
+## L7：切工-价格直方图
+问：
+Break out the histogram of diamond prices by cut.
+You should have five histograms in separate panels on your resulting plot.
+
+答：
+
+```{r cut-price}
+summary(diamonds$cut)
+qplot(x = price, data = diamonds) +
+  facet_grid(~cut)
+```
+
+## L8：切工-价格分析
+问：最高价格的切工？最低价格的切工？最低中值价格的切工？
+
+答：
+
+```{r}
+by(diamonds$price, diamonds$cut, max)
+by(diamonds$price, diamonds$cut, min)
+by(diamonds$price, diamonds$cut, median)
+by(diamonds$price, diamonds$cut, summary)
+```
+
+## L9：标尺和多直方图
+更多标尺的设置可以参见http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/
+
+```{r}
+qplot(x = price, data = diamonds) + facet_wrap(~cut)
+qplot(x = price, data = diamonds) + facet_grid(cut ~ .)
+```
+
+## L10：由切工决定的每克拉价格
+
+提示 1：你可以在参数 x 中使用价格和克拉变量。什么表达式可使你得到每克拉价格？ 
+提示 2：对于长尾分布，你可以添加一个 ggplot 图层（如：scale_x_log10()）来转换变量。
+
+```{r}
+qplot(x = price/carat, data = diamonds) + 
+  facet_grid(cut ~ .) + 
+  scale_x_log10()
+```
+
+
+## L11:价格箱线图
+用箱线图观察钻石价格，数学统计，并选择cut、clarity、color中的一个进行分类
+注意：用ggsave('pic_name.png')来保存最后一个图形
+
+```{r}
+qplot(x = color, y = price, data = diamonds, geom = 'boxplot')
+ggsave('color_price_boxplot.png')
+```
+```{r}
+by(diamonds$price, diamonds$color, summary)
+```
+
+## L12:四分位数间距IQR
+你可以使用 IQR() 函数来查找四分位数间距，并向其传入钻石数据框的一个子集。 
+例如... 
+IQR(subset(diamonds, price <1000)$price) 
+记住：subset 返回一个数据框，因此我们需要在最后使用 $price 来访问该变量。
+
+```{r}
+IQR(subset(diamonds$price, diamonds$color=='D'))
+IQR(subset(diamonds, color=='J')$price)
+```
+
+
+## L13:由颜色表示的每克拉价格箱线图
+
+```{r}
+qplot(x = color, y = price/carat, data = diamonds, geom = 'boxplot')
+ggsave('color_price_per_carat_boxplot.png')
+```
+
+## L14:克拉频率多边形
+用频率多边形（frequency plogon）观察钻石重量
+
+对于这个问题，我们寻找的是精确值的计数 — 尝试从较大的组宽开始，接着减小组宽，以查看图形是如何变化的，然后关注你最感兴趣的值。
+
+```{r}
+qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = 0.05)
+```
+
+
+## L15:用 R 进行数据整理
+数据加工或数据整理占用数据科学家或数据分析员大量的时间，而 tidyr 和 dplyr 两种 R 包可使 R 中的这些任务更加简单。
+tidyr - 用于重塑数据布局的包
+dplyr - 用于帮助转换整洁的表格数据的包
+
+查看 [R语言内的数据整理](https://s3.amazonaws.com/udacity-hosted-downloads/ud651/DataWranglingWithR.pdf)，了解这些包如何能使你操纵数据。你可以使用这些包来帮助你完成下一个编程任务和未来的调查。
+
+你可能还需要下载这张有用的[数据整理速查表](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)。RStudio 上还有其他一些有用的[速查表](https://www.rstudio.com/resources/cheatsheets/)。
+
+
+## L16:Gapminder 数据
+GAPMWER网站包含超过500个数据集，包含有关世界人口。您的任务是下载您选择的数据集。并创建2-5个图，利用第3课的技巧。
+
+你可以使用一个简单的直方图，在一个分类变量上分割一个方框图，或频率多边形。选择权在你！
+
+你可以在老师的笔记中找到GAPMPER网站的链接。
+
+一旦你完成了调查，在讨论中创建一个帖子，包括：
+1。你回答的任何问题，你的观察和总结统计
+2。创建情节的代码片段
+3。链接到你的情节图像
+
+对于一些 Gapminder 数据集，在转换为 csv 格式后，以下命令可能会很有用： read.csv('data.csv', header = T, row.names = 1, check.names = F)
+
+如果你想对调数据框中的行和列，可以使用这个函数：t()。
+
+
+```{r}
+install.packages("tidyr")
+library(tidyr)
+
+df <- read.csv('indicator age of marriage.csv', header = T, row.names = 1, check.names = F)
+df <- gather(df)
+
+qplot(x = '2008', data = indicator_army_total)
+
+```
+
+
+## L17:探索你的好友的生日
+
+```{r}
+birthday <- read.csv('birthdaysExample.csv')
+install.packages("lubridate") 
+library(lubridate)
+qplot(x = month(dates), data = birthday)
+
+z <- strptime(birthday, "%d/%m/%y")
+
+```
+
