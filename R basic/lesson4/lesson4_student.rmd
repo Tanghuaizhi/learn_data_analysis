@@ -66,7 +66,9 @@ Response:1、好友人数呈现“增加-减少-增加-再减少”的趋势；
 ***
 
 ### Coord_trans()
-Notes:运行代码 ?coord_trans 以查找有关 coord_trans() 的文档，或者访问 http://docs.ggplot2.org/current/coord_trans.html
+Notes:用coord_trans来调整坐标轴的显示。
+运行代码 ?coord_trans 以查找有关 coord_trans() 的文档，或者访问 http://docs.ggplot2.org/current/coord_trans.html
+
 
 ```{r Coord_trans()}
 d <- subset(pf, friend_count > 0)
@@ -78,7 +80,9 @@ ggplot(aes(x = age, y = friend_count), data = d) +
 
 #### Look up the documentation for coord_trans() and add a layer to the plot that transforms friend_count using the square root function. Create your plot!
 
+由于抖动jitter会产生一些负数，可以考虑用position来处理。
 
+如果是原本数据中的负数和0数据，经尝试可用subset来处理。
 
 
 ```{r}
@@ -98,15 +102,17 @@ Notes:探索friends initiated 和 age的关系
 
 ```{r Alpha and Jitter}
 ggplot(aes(x = age, y = friendships_initiated), data = pf) +
-  geom_jitter(alpha = 1/20) +
-  xlim(13, 90)
+  geom_point(alpha = 1/20, position = position_jitter(h = 0)) +
+  xlim(13, 90) +
+  coord_trans(y = 'sqrt')
+
 ```
 
 ***
 
 ### Overplotting and Domain Knowledge
 Notes:
-
+转换坐标轴，让数据更有意义
 ***
 
 ### Conditional Means
