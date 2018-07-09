@@ -48,39 +48,58 @@ summary(pf$age)
 ***
 
 ### Overplotting
-Notes:
+Notes:重叠绘制的情况出现时，图像会看不清晰。这时，可以用α和geom来设置透明度解决。
+继续用geom_jitter()可以增加抖动噪音，让重复的点分离开来。
 
 ```{r Overplotting}
-
+ggplot(aes(x = age, y = friend_count), data = pf) + geom_jitter(alpha = 1/20) +
+  xlim(13, 90)
 ```
 
 #### What do you notice in the plot?
-Response:
+Response:1、好友人数呈现“增加-减少-增加-再减少”的趋势；
+2、年轻人好友人数更多；
+3、号称年龄70岁的人数比较多。
+
+答案：年轻用户人数并没有想像的那么高，大概在1000以下；其次是69岁人数比较多。
 
 ***
 
 ### Coord_trans()
-Notes:
+Notes:运行代码 ?coord_trans 以查找有关 coord_trans() 的文档，或者访问 http://docs.ggplot2.org/current/coord_trans.html
 
 ```{r Coord_trans()}
-
+d <- subset(pf, friend_count > 0)
+ggplot(aes(x = age, y = friend_count), data = d) + 
+  geom_jitter(alpha = 1/20) +
+  xlim(13, 90) + 
+  coord_trans(y = "sqrt")
 ```
 
 #### Look up the documentation for coord_trans() and add a layer to the plot that transforms friend_count using the square root function. Create your plot!
 
-```{r}
 
+
+
+```{r}
+ggplot(aes(x = age, y = friend_count), data = pf) + 
+  geom_point(alpha = 1/20, position = position_jitter(h = 0)) +
+  xlim(13, 90) + 
+  coord_trans(y = "sqrt")
 ```
 
 #### What do you notice?
+与之前相比，该图的变化趋势更明显。
 
 ***
 
 ### Alpha and Jitter
-Notes:
+Notes:探索friends initiated 和 age的关系
 
 ```{r Alpha and Jitter}
-
+ggplot(aes(x = age, y = friendships_initiated), data = pf) +
+  geom_jitter(alpha = 1/20) +
+  xlim(13, 90)
 ```
 
 ***
