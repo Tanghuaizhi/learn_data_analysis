@@ -4,30 +4,45 @@ Lesson 4
 ***
 
 ### Scatterplots and Perceived Audience Size
-Notes:
+Notes:预测人数和实际人数的关系，如果猜的准，应落在45°线上。通过两者关系图，可以看出一些猜和实际的规律。
 
 ***
 
 ### Scatterplots
-Notes:
+Notes:注意qplot可以不用指定x、y，函数会自动按x第一、y第二识别。
+散点图生成后，通常，最好想一下是什么产生了数据集中的某些怪现象或值。这能帮助我们解释脏数据。
+
+
 
 ```{r Scatterplots}
 getwd()
 dir()
+
+library(ggplot2)
+pf <- read.csv('pseudo_facebook.tsv', sep = '\t')
+
+qplot(x = age, y = friend_count, data = pf)
 ```
 
 ***
 
 #### What are some things that you notice right away?
-Response:
+Response:从图发现，年龄集中在30岁以下，好友人数集中在1000人以下甚至更少。
+
+参考：年轻人的好友数会多达好几千人；有明显的虚假年龄。
 
 ***
 
 ### ggplot Syntax
-Notes:
+Notes:qplot是快速绘图。ggplot是更正式的语法，主要的差别在于：一是需要指定geom或者图表类型；二是需要用aes包裹。
+另外需要注意的是，可以通过“+”运算，来逐步增加图层并随时调整修改图像。
+
 
 ```{r ggplot Syntax}
-
+qplot(x = age, y = friend_count, data = pf)
+ggplot(aes(x = age, y = friend_count), data = pf) + geom_point() +
+  xlim(13, 90)
+summary(pf$age)
 ```
 
 ***

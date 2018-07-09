@@ -245,10 +245,23 @@ GAPMWER网站包含超过500个数据集，包含有关世界人口。您的任�
 install.packages("tidyr")
 library(tidyr)
 
-df <- read.csv('indicator age of marriage.csv', header = T, row.names = 1, check.names = F)
+df <- read.csv('indicator age of marriage.csv')
 df <- gather(df)
 
 qplot(x = '2008', data = indicator_army_total)
+
+```
+
+
+
+数据清理：
+
+```{r}
+# install.packages("devtools")
+# devtools::install_github("rstudio/EDAWR")
+library(EDAWR)
+?cases
+
 
 ```
 
