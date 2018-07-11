@@ -1,0 +1,600 @@
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 重庆市森林生态系统服务功能价值评估
+{Cited Count}: 72
+{Custom 1}: 1.0
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 吉林森工集团森林生态系统服务价值评价及预测研究
+{Cited Count}: 25
+{Custom 1}: 0.6541032733978792
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 青海湖湿地生态系统服务价值评估
+{Cited Count}: 13
+{Custom 1}: 0.3521207929921623
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 神农架自然保护区森林生态系统服务价值评估
+{Cited Count}: 25
+{Custom 1}: 0.3428999538958045
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 张掖黑河湿地自然保护区生态服务功能价值评估
+{Cited Count}: 13
+{Custom 1}: 0.3371369294605809
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 博斯腾湖生态系统最终服务价值评估
+{Cited Count}: 12
+{Custom 1}: 0.322268326417704
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 土地整理的生态系统服务价值评估与生态设计策略——以吉林省大安市土地整理项目为例
+{Cited Count}: 22
+{Custom 1}: 0.30301982480405715
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 生态产品价值评估问题探讨
+{Cited Count}: 10
+{Custom 1}: 0.26394651913324113
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 中国内陆湿地生态系统服务价值评估——以71个湿地案例点为数据源
+{Cited Count}: 10
+{Custom 1}: 0.260488704472107
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 贵州草海湿地生态系统服务价值评估
+{Cited Count}: 9
+{Custom 1}: 0.23858921161825722
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 森林生态系统服务功能价值评估与分析
+{Cited Count}: 6
+{Custom 1}: 0.229253112033195
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 基于土地利用—生态系统耦合模型的生态系统服务价值评估——以中国北方农牧交错带为例
+{Cited Count}: 17
+{Custom 1}: 0.227293683725219
+
+{Reference Type}: Journal Article
+{Year}: 2017
+{Title}: 白洋淀湿地生态系统最终服务价值评估
+{Cited Count}: 4
+{Custom 1}: 0.20562471184877823
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 论湿地生态系统服务的多维度价值评估方法
+{Cited Count}: 14
+{Custom 1}: 0.1887966804979253
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 泉州森林生态系统服务功能价值评估与对比分析
+{Cited Count}: 7
+{Custom 1}: 0.17911479944674963
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 湿地生态系统服务价值评价去重复性研究的思考
+{Cited Count}: 13
+{Custom 1}: 0.17306362378976486
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 北京市农业生态价值评价研究
+{Cited Count}: 5
+{Custom 1}: 0.17231443061318577
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 吉林省森林生态系统服务价值评价
+{Cited Count}: 4
+{Custom 1}: 0.14246196403872755
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 海南省红树林湿地生态系统服务功能价值评估
+{Cited Count}: 11
+{Custom 1}: 0.13756339326878747
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 建阳市森林生态系统服务价值评估
+{Cited Count}: 9
+{Custom 1}: 0.1063278008298755
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 上海市森林生态服务价值评估与分析
+{Cited Count}: 3
+{Custom 1}: 0.10425311203319503
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 干热河谷区退耕还林生态效益价值评估——以云南巧家县为例
+{Cited Count}: 8
+{Custom 1}: 0.103273397879207
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 海南省滨海自然湿地生态系统服务功能价值评估
+{Cited Count}: 4
+{Custom 1}: 0.0995850622406639
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 重庆市森林生态系统服务价值评价
+{Cited Count}: 8
+{Custom 1}: 0.09313047487321345
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 生态价值评估方法与补偿标准应用情况研究
+{Cited Count}: 5
+{Custom 1}: 0.08586906408483172
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 惠安县森林生态系统服务功能价值评估
+{Cited Count}: 7
+{Custom 1}: 0.08189257722452743
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 洱海湿地生态系统服务功能价值评估
+{Cited Count}: 6
+{Custom 1}: 0.07538035961272475
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 基于多源数据融合的南四湖湿地生态系统服务功能价值评估
+{Cited Count}: 6
+{Custom 1}: 0.07295988934993083
+
+{Reference Type}: Journal Article
+{Year}: 2017
+{Title}: 江苏省重点公益林生态服务功能及价值评估
+{Cited Count}: 2
+{Custom 1}: 0.07238358690640848
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 滨海湿地生态系统服务及其价值评估研究进展
+{Cited Count}: 2
+{Custom 1}: 0.0719225449515906
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 洞庭湖生态系统最终服务价值评估
+{Cited Count}: 2
+{Custom 1}: 0.06881051175656985
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 山东省滨海湿地生态价值评估
+{Cited Count}: 2
+{Custom 1}: 0.0682342093130475
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 根河林业局森林生态服务功能价值评估
+{Cited Count}: 3
+{Custom 1}: 0.06708160442600276
+
+{Reference Type}: Journal Article
+{Year}: 2017
+{Title}: 京津冀林业生态工程生态价值评价与布局优化研究
+{Cited Count}: 1
+{Custom 1}: 0.06408483171968649
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 高邮湖生态服务功能价值评估
+{Cited Count}: 3
+{Custom 1}: 0.06362378976486859
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 甘肃省白龙江林区主要森林类型生态服务功能价值评估
+{Cited Count}: 5
+{Custom 1}: 0.06339326878745966
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 九万山自然保护区森林生态系统服务价值评估
+{Cited Count}: 2
+{Custom 1}: 0.06051175656984786
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 高速公路水土保持生态服务功能价值评估浅析——以陕西省不同区域三条高速公路为例
+{Cited Count}: 5
+{Custom 1}: 0.05503688335638544
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 山西省天保区森林生态系统服务功能价值评估
+{Cited Count}: 3
+{Custom 1}: 0.0532503457814661
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 南县森林生态系统服务功能价值评估
+{Cited Count}: 3
+{Custom 1}: 0.05290456431535268
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 新疆巴尔鲁克山自然保护区森林生态系统服务功能价值评估
+{Cited Count}: 5
+{Custom 1}: 0.051867219917012444
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 中国近海藻类养殖生态价值评估初探
+{Cited Count}: 3
+{Custom 1}: 0.05100276625172891
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 国家生态旅游示范区生态价值评估及其影响因素——以大围山国家生态旅游示范区为例
+{Cited Count}: 1
+{Custom 1}: 0.050656984785615505
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 耕地生态价值评估研究进展分析
+{Cited Count}: 1
+{Custom 1}: 0.048236514522821586
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 芝麻对稗草的化感作用及其大田生态价值评价
+{Cited Count}: 1
+{Custom 1}: 0.04754495159059474
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 森林型国家生态旅游示范区生态价值评估与预测研究--以大围山国家生态旅游示范区为例
+{Cited Count}: 1
+{Custom 1}: 0.04719917012448133
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 晋江市森林生态系统服务功能价值评估
+{Cited Count}: 2
+{Custom 1}: 0.047026279391424626
+
+{Reference Type}: Journal Article
+{Year}: 2017
+{Title}: 宜兴市生态资源价值的定量评估与分析
+{Cited Count}: 1
+{Custom 1}: 0.04610419548178884
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 苏州城市森林生态环境监测及服务功能价值评估
+{Cited Count}: 4
+{Custom 1}: 0.042876901798063624
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 南沙渔业湿地生态系统服务价值评估
+{Cited Count}: 4
+{Custom 1}: 0.039880129091747346
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 城市绿地生态服务功能价值评估——以北京林业大学为例
+{Cited Count}: 4
+{Custom 1}: 0.0396496081143384
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 我国森林生态系统价值评估研究现状及展望
+{Cited Count}: 2
+{Custom 1}: 0.039188566159520516
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 河南省南召县退耕还林工程生态效益价值评估
+{Cited Count}: 4
+{Custom 1}: 0.03803596127247579
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 新疆乌伦古河湿地生态系统服务功能价值评估研究
+{Cited Count}: 2
+{Custom 1}: 0.03780544029506685
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 江西九连山国家级自然保护区森林生态系统服务价值评估
+{Cited Count}: 4
+{Custom 1}: 0.037574919317657905
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 海洋生态系统内在价值评估方法初探--以厦门湾为例
+{Cited Count}: 3
+{Custom 1}: 0.03630705394190871
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 生态价值评估制度探究——兼论资产评估法的完善
+{Cited Count}: 2
+{Custom 1}: 0.0338865836791148
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 辽河流域生态价值评估中WTP与WTA差异性的实证分析
+{Cited Count}: 1
+{Custom 1}: 0.03354080221300138
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 森林生态系统服务的价值评估和补偿:概念、原则和指标
+{Cited Count}: 3
+{Custom 1}: 0.033367911479944674
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 陕西省宁陕县天然林保护工程生态效益价值评估
+{Cited Count}: 1
+{Custom 1}: 0.03129322268326418
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 贵州省森林生态系统服务功能的价值评估
+{Cited Count}: 3
+{Custom 1}: 0.03094744121715076
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 浙江省沿海防护林体系二期工程森林生态效益价值评估
+{Cited Count}: 2
+{Custom 1}: 0.029967727063162742
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 基于双栏模型的三江平原湿地生态保护价值评估
+{Cited Count}: 1
+{Custom 1}: 0.029564315352697098
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 怀来县农田生态系统服务价值分类评估
+{Cited Count}: 1
+{Custom 1}: 0.029045643153526975
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 杭州湾国家湿地公园湿地生态系统服务价值评估
+{Cited Count}: 1
+{Custom 1}: 0.027489626556016597
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 广东碳汇林生态服务功能价值评价
+{Cited Count}: 1
+{Custom 1}: 0.02731673582295989
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 贵州省退耕还林工程生态服务功能价值评估
+{Cited Count}: 3
+{Custom 1}: 0.025933609958506222
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 草海、洪河湿地生态系统服务功能价值评估及对比分析
+{Cited Count}: 3
+{Custom 1}: 0.024896265560165973
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 湿地生态系统服务价值评价的去重复性计算研究
+{Cited Count}: 3
+{Custom 1}: 0.023686030428769017
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 石家庄市森林生态服务价值评估及预测
+{Cited Count}: 2
+{Custom 1}: 0.022706316274781008
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 龙岩市森林生态系统服务价值评价
+{Cited Count}: 2
+{Custom 1}: 0.022475795297372064
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 城市自然生态空间的价值评估及规划启示
+{Cited Count}: 2
+{Custom 1}: 0.021092669432918393
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 重庆黔江区森林生态系统服务功能价值评估
+{Cited Count}: 1
+{Custom 1}: 0.02091977869986169
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 乐清湾海洋生态系统服务价值评估
+{Cited Count}: 1
+{Custom 1}: 0.020055325034578145
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 温州海域生态系统的供给服务价值评估
+{Cited Count}: 1
+{Custom 1}: 0.019190871369294607
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 福建海坛岛主要防护林生态服务功能价值评估
+{Cited Count}: 1
+{Custom 1}: 0.01855693868142001
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 采煤沉陷区农田-水域生态系统变化前后服务价值评估
+{Cited Count}: 1
+{Custom 1}: 0.01798063623789765
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 基于多源数据融合的宁夏平原不同湿地类型生态服务功能价值评估
+{Cited Count}: 1
+{Custom 1}: 0.017289073305670817
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 森林生态系统服务功能价值评估综述
+{Cited Count}: 1
+{Custom 1}: 0.01711618257261411
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 湖北省汉江流域生态服务功能价值评估
+{Cited Count}: 1
+{Custom 1}: 0.01590594744121715
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 生态价值评估、资源证券化与生态补偿机制探讨——以湖南东江湖区的生态价值评估为例
+{Cited Count}: 1
+{Custom 1}: 0.015790686952512678
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 渤海污染风险与生态系统功能价值评价研究
+{Cited Count}: 1
+{Custom 1}: 0.015560165975103733
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 传统农业生态系统的生态价值评估理论与实证研究
+{Cited Count}: 1
+{Custom 1}: 0.015560165975103733
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 国内森林生态系统服务价值评估方法与指标研究综述
+{Cited Count}: 1
+{Custom 1}: 0.014638082065467958
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 基于皮尔曲线的甘肃生态价值支付意愿评估
+{Cited Count}: 2
+{Custom 1}: 0.014522821576763486
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 甘肃迭部县森林生态系统服务价值评估
+{Cited Count}: 2
+{Custom 1}: 0.01440756108805901
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 平江县生态服务功能价值评估
+{Cited Count}: 1
+{Custom 1}: 0.01429230059935454
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 城市森林生态系统服务功能价值评估方法研究
+{Cited Count}: 2
+{Custom 1}: 0.013600737667127709
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 流动风险源突发性环境事件环境污染及生态损失价值评估
+{Cited Count}: 1
+{Custom 1}: 0.013370216689718764
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 汾河清水复流工程生态影响及价值评价
+{Cited Count}: 1
+{Custom 1}: 0.01256339326878746
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 洱海流域森林生态系统服务功能价值评估
+{Cited Count}: 1
+{Custom 1}: 0.012332872291378515
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 楚雄市森林生态系统服务功能价值评估
+{Cited Count}: 1
+{Custom 1}: 0.006569847856154909
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 农地征收中生态功能价值评估研究
+{Cited Count}: 1
+{Custom 1}: 0.006051175656984786
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 洛河洛阳市区段水土保持工程生态效益价值评估
+{Cited Count}: 1
+{Custom 1}: 0.005647763946519134
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 海洋生态系统内在价值评估方法研究
+{Cited Count}: 1
+{Custom 1}: 0.005301982480405717
+
+{Reference Type}: Journal Article
+{Year}: 2015
+{Title}: 天津围填海工程海洋生态损害价值评估指标的初探
+{Cited Count}: 1
+{Custom 1}: 0.004725680036883356
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 森林生态服务功能价值评价研究
+{Cited Count}: 1
+{Custom 1}: 0.004495159059474413
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 基于生态区位系数的大小兴安岭森林生态服务功能价值评估研究
+{Cited Count}: 1
+{Custom 1}: 0.004264638082065468
+
+{Reference Type}: Journal Article
+{Year}: 2014
+{Title}: 森林生态效益价值的评估方法及其适用性
+{Cited Count}: 1
+{Custom 1}: 0.002305209774089442
+
+{Reference Type}: Journal Article
+{Year}: 2016
+{Title}: 基于CVM的青海湖旅游区生态系统美学价值评估
+{Cited Count}: 0
+{Custom 1}: 0.0
+
