@@ -117,7 +117,7 @@ ggsave currently recognises the extensions eps/ps, tex (pictex), pdf, jpeg, tiff
 qplot(x = price, data = diamonds, binwidth = 10,
       xlab = 'Price',
       ylab = 'Count') + 
-  scale_x_continuous(limits = c(400, 800), breaks = c(400, 800, 100))
+  scale_x_continuous(limits = c(400, 800), breaks = seq(400, 800, 100))
 
 qplot(x = price, data = diamonds,
       xlab = 'Price',

@@ -116,11 +116,34 @@ Notes:
 ***
 
 ### Conditional Means
-Notes:
+Notes:课程链接中有关于dplyr包的简介及教程等
+
+常用的函数包括：filter()、group_by()、mutate()、arrange()
 
 ```{r Conditional Means}
+library(dplyr)
 
+age_group <- group_by(pf, age)
+pf.fc_by_age = summarise(age_group,
+          friend_count_mean = mean(friend_count),
+          friend_coun_median = median(friend_count),
+          n = n())
+
+pf.fc_by_age <- arrange(pf.fc_by_age, age)
+
+head(pf.fc_by_age)
 ```
+
+上述代码的另一种写法
+```{r}
+pf.fc_by_age <- pf %>%
+  group_by(age) %>%
+  summarise(friend_count_mean = mean(friend_count),
+            friend_coun_median = median(friend_count),
+            n = n()) %>%
+  arrange(age)
+```
+
 
 Create your plot!
 
