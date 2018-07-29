@@ -76,6 +76,11 @@ ggplot(aes(x = age, y = friend_count), data = d) +
   geom_jitter(alpha = 1/20) +
   xlim(13, 90) + 
   coord_trans(y = "sqrt")
+
+ggplot(data = pf, aes(x = age, y = friend_count)) +
+  geom_point(alpha = 1/20, position = position_jitter(h = 0)) +
+  xlim(13, 90) + 
+  coord_trans(y = 'sqrt')
 ```
 
 #### Look up the documentation for coord_trans() and add a layer to the plot that transforms friend_count using the square root function. Create your plot!
@@ -102,8 +107,7 @@ Notes:探索friends initiated 和 age的关系
 
 ```{r Alpha and Jitter}
 ggplot(aes(x = age, y = friendships_initiated), data = pf) +
-  geom_point(alpha = 1/20, position = position_jitter(h = 0)) +
-  xlim(13, 90) +
+  geom_point(alpha = 1/50, position = position_jitter(h = 0)) +
   coord_trans(y = 'sqrt')
 
 ```
@@ -142,6 +146,8 @@ pf.fc_by_age <- pf %>%
             friend_coun_median = median(friend_count),
             n = n()) %>%
   arrange(age)
+
+head(pf.fc_by_age, 20)
 ```
 
 
@@ -149,61 +155,103 @@ Create your plot!
 
 ```{r Conditional Means Plot}
 
+ggplot(data = pf.fc_by_age, aes(x = age, y = friend_count_mean)) +
+  geom_line()
 ```
 
 ***
 
 ### Overlaying Summaries with Raw Data
 Notes:
+ggplot允许我们轻松创建数据的各种汇总，十分适合快速探索并叠加到原始数据图形
+叠加的图，可以传递参数stat，并用fun.y给y轴设置一个函数
+可以添加多个叠加来辅助可视化
+
+注意：合理使用coord_cartesian()来放大图像，但注意要去掉coord_trans
 
 ```{r Overlaying Summaries with Raw Data}
+ggplot(data = pf, aes(x = age, y = friend_count)) +
+  xlim = c(13, 90) + 
+  geom_point(alpha = 1/20, 
+             position = position_jitter(h = 0),
+             color = 'orange') +
+  coord_trans(y = 'sqrt') +
+  geom_line(stat = 'summary', fun.y = mean) + 
+  geom_line(stat = 'summary', fun.y = quantile, fun.args = list(probs = .1),
+            linetype = 2, color = 'blue') + 
+  geom_line(stat = 'summary', fun.y = quantile, fun.args = list(probs = .5),
+            linetype = 1, color = 'blue') +
+  geom_line(stat = 'summary', fun.y = quantile, fun.args = list(probs = .9),
+            linetype = 2, color = 'blue')
+
+
+ggplot(data = pf, aes(x = age, y = friend_count)) +
+  coord_cartesian(xlim = c(13, 70), ylim = c(0, 1000),) + 
+  geom_point(alpha = 1/20, 
+             position = position_jitter(h = 0),
+             color = 'orange') +
+  geom_line(stat = 'summary', fun.y = mean) + 
+  geom_line(stat = 'summary', fun.y = quantile, fun.args = list(probs = .1),
+            linetype = 2, color = 'blue') + 
+  geom_line(stat = 'summary', fun.y = quantile, fun.args = list(probs = .5),
+            linetype = 1, color = 'blue') +
+  geom_line(stat = 'summary', fun.y = quantile, fun.args = list(probs = .9),
+            linetype = 2, color = 'blue')
 
 ```
 
 #### What are some of your observations of the plot?
-Response:
+Response:1、所有年龄的好友平均数大于中位数，即少部分人拥有数量较高的朋友数量；2、30-68岁的好友数量较为稳定;3、1000好友数是很少出现的，70随以后的好友数量逐渐增加
 
 ***
 
 ### Moira: Histogram Summary and Scatterplot
 See the Instructor Notes of this video to download Moira's paper on perceived audience size and to see the final plot.
 
-Notes:
+Notes:用摘要的组合图，能更直观的显示统计汇总结果
 
 ***
 
 ### Correlation
 Notes:
+可以使用with()函数
 
 ```{r Correlation}
+cor.test(x = pf$age, y = pf$friend_count, method = 'pearson')
 
+with(pf, cor.test(age, friend_count, method = 'pearson'))
 ```
 
 Look up the documentation for the cor.test function.
 
 What's the correlation between age and friend count? Round to three decimal places.
-Response:
+Response:0.0274
 
 ***
 
 ### Correlation on Subsets
-Notes:
+Notes:cor.test的默认方法就是perason相关系数
 
 ```{r Correlation on Subsets}
-with(                 , cor.test(age, friend_count))
+with(subset(pf, age > 13 & age <=70), cor.test(age, friend_count, method = 'pearson'))
 ```
 
 ***
 
 ### Correlation Methods
-Notes:
+Notes:不同的方法，相关系数不一样。同时，虽然相关系数的值很有用，但是无法取代前面课程的散点图和摘要
 
 ***
 
 ## Create Scatterplots
 Notes:
+尽可能使用ggplot
+基本的框架是三个：数据、aes装饰、数据显示方式。
+再然后就是对图的修饰，比如坐标轴、区间等。
 
 ```{r}
+ggplot(data = pf, aes(x = www_likes_received, y = likes_received)) + 
+  geom_point() 
 
 ```
 
@@ -211,23 +259,38 @@ Notes:
 
 ### Strong Correlations
 Notes:
-
+可以从上图看到，有一些跳跃的异常值，因此需要确定好x、y的limit。可以用quantile命令，查看95%的数据。
+找到最合适的拟合直线，用平滑器添加到图中。
+然后再看看相关系数。
 ```{r Strong Correlations}
-
+ggplot(data = pf, aes(x = www_likes_received, y = likes_received)) + 
+  geom_point() +
+  xlim(0, quantile(pf$www_likes_received, 0.95)) +
+  ylim(0, quantile(pf$likes_received, 0.95)) + 
+  geom_smooth(method = "lm", color = 'red')
 ```
 
 What's the correlation betwen the two variables? Include the top 5% of values for the variable in the calculation and round to 3 decimal places.
 
+相关系数在 X 或 Y 的线性转换下是不变的，并且当 X 和 Y 都被转换为 z 分数时，回归线的斜率就是相关系数。
+值得注意的是，我们并不总是对大部分数据感兴趣。有时候，我们关注的是异常值，而且重要的是，我们要了解它们的值以及它们为何出现在数据集中。
+
+
 ```{r Correlation Calcuation}
+with(pf, cor.test(x = www_likes_received, y = likes_received, method = 'pearson'))
 
 ```
 
-Response:
+Response:相关系数为0.948，实际中是不可能出现这样的强相关的，其中一个是另一个的超子集。
+
 
 ***
 
 ### Moira on Correlation
 Notes:
+强相关性并非就一定好，因此要首先观察相关性，看看两个变量的关系。
+方法上除了观察散点图，就是计算r值。
+相关系数十分重要，因为通常数据都是有相关的。尤其是，描述的事情是同一类型。比如，当做某种回归（即进行建模），要选择合适的变量放入回归，因为回归的假设就是这些变量彼此独立。需要首先计算相关性，然后确认哪些变量不要一起投入或是保留哪些变量。
 
 ***
 
