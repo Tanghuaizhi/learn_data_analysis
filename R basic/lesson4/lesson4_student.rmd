@@ -186,7 +186,7 @@ ggplot(data = pf, aes(x = age, y = friend_count)) +
 
 
 ggplot(data = pf, aes(x = age, y = friend_count)) +
-  coord_cartesian(xlim = c(13, 70), ylim = c(0, 1000),) + 
+  coord_cartesian(xlim = c(13, 70), ylim = c(0, 1000)) + 
   geom_point(alpha = 1/20, 
              position = position_jitter(h = 0),
              color = 'orange') +
@@ -296,16 +296,19 @@ Notes:
 
 ### More Caution with Correlation
 Notes:
+单纯的考虑r很容易出现错误。最好是作图，发现深层次的信息。
 
 ```{r More Caution With Correlation}
 install.packages('alr3')
 library(alr3)
+data(Mitchell)
 ```
 
 Create your plot!
 
 ```{r Temp vs Month}
-
+ggplot(data = Mitchell, aes(x = Month, y = Temp)) +
+  geom_point()
 ```
 
 ***
@@ -313,19 +316,36 @@ Create your plot!
 ### Noisy Scatterplots
 a. Take a guess for the correlation coefficient for the scatterplot.
 
+猜是0，但结果肯定不是
+
+
 b. What is the actual correlation of the two variables?
 (Round to the thousandths place)
 
-```{r Noisy Scatterplots}
+0.057
 
+```{r Noisy Scatterplots}
+cor.test(Mitchell$Month, Mitchell$Temp, method = 'pearson')
 ```
 
 ***
 
 ### Making Sense of Data
 Notes:
+上述数据看似不相关，但是用月份来展示可能不正确，需要理解数据，更换合适的方案来呈现数据
+
+解决方案是用离散坐标轴
+
 
 ```{r Making Sense of Data}
+ggplot(data = Mitchell, aes(x = Month, y = Temp)) +
+  geom_bar()
+
+range(Mitchell$Month)
+
+ggplot(data = Mitchell, aes(x = Month, y = Temp)) +
+  geom_point() +
+  scale_x_continuous(breaks = seq(0, 203, 12))
 
 ```
 
@@ -334,10 +354,22 @@ Notes:
 ### A New Perspective
 
 What do you notice?
-Response:
+Response:一年内，温度先上升后下降
+
+The cor and cor.test functions determine the strength of a linear relationship, but they may miss other relationships in the data.
 
 Watch the solution video and check out the Instructor Notes!
 Notes:
+要理解该数据，你还可以将每一年的数据相互叠加，构建出一个清晰的常规正弦曲线图。你可以在代码中使用 R 的模数运算符 %% 来这样做。尝试运行以下代码！
+ggplot(aes(x=(Month%%12),y=Temp),data=Mitchell)+ 
+  geom_point()
+  
+
+```{r}
+ggplot(aes(x=(Month%%12),y=Temp),data=Mitchell)+ 
+  geom_point()
+```
+
 
 ***
 
@@ -345,8 +377,18 @@ Notes:
 Notes:
 
 ```{r Understanding Noise: Age to Age Months}
+ggplot(aes(x = age, y = friend_count_mean), data = pf.fc_by_age) + 
+  geom_line()
 
+head(pf.fc_by_age, 10)
 ```
+
+```{r}
+head(pf, 10)
+
+pf$age_with_month <- pf$age + (12 - pf$dob_month)/12
+```
+
 
 ***
 
@@ -354,6 +396,28 @@ Notes:
 
 ```{r Age with Months Means}
 
+library(dplyr)
+
+age_with_month_group <- group_by(pf, age_with_months)
+pf.fc_by_age_months = summarise(age_with_month_group,
+          friend_count_mean = mean(friend_count),
+          friend_coun_median = median(friend_count),
+          n = n())
+
+pf.fc_by_age_months <- arrange(pf.fc_by_age_months, age_with_month_group)
+
+head(pf.fc_by_age_months)
+
+
+
+pf.fc_by_age_months <- pf %>%
+  group_by(age_with_month) %>%
+  summarise(friend_count_mean = mean(friend_count),
+            friend_coun_median = median(friend_count),
+            n = n()) %>%
+  arrange(age_with_month)
+
+head(pf.fc_by_age_months, 20)
 ```
 
 Programming Assignment
@@ -366,15 +430,41 @@ Programming Assignment
 ### Noise in Conditional Means
 
 ```{r Noise in Conditional Means}
-
+ggplot(data = pf.fc_by_age_months, aes(x = age_with_month, y = friend_count_mean)) +
+  geom_line() +
+  coord_cartesian(xlim = c(13, 71), ylim = c(0, 500))
 ```
 
+视频中未进行坐标轴设置，是采用subset()函数来取age为71以下的子集
 ***
 
 ### Smoothing Conditional Means
 Notes:
+先把上述两张图同时放在一起比较，用到了gridExtra包
+
+进一步平滑数据
+
+这样比较，有利于在分析数据过程中，选取合适的平滑，便于模型拟合
+
+ggplot中已经内置了上述函数，即geom_smooth()
 
 ```{r Smoothing Conditional Means}
+p1 <- ggplot(data = subset(pf.fc_by_age, age < 71),
+             aes(x = age, y = friend_count_mean)) +
+  geom_line() +
+  geom_smooth()
+
+p2 <- ggplot(data = subset(pf.fc_by_age_months, age_with_month < 71),
+             aes(x = age_with_month, y = friend_count_mean)) +
+  geom_line() +
+  geom_smooth()
+
+p3 <- ggplot(data = subset(pf, age < 71),
+             aes(x = round(age / 5) * 5, y = friend_count)) +
+  geom_line(stat = 'summary', fun.y = mean)
+
+library(gridExtra)
+grid.arrange(p2, p1, p3, ncol =1)
 
 ```
 
@@ -382,11 +472,16 @@ Notes:
 
 ### Which Plot to Choose?
 Notes:
-
+如何选择可视化图形？答案是：不用选择。
+在EDA中，通常创建相同数据的多个可视化及汇总结果，从不同角度观察数据，获得信息。
 ***
 
 ### Analyzing Two Variables
 Reflection:
+
+一是散点图很重要，是发现信息的重要来源。在绘制过程中，有些小技巧可以让散点图可视化的时候更加清晰，如透明、增加抖动等。
+二是相关性很重要，用于度量两个独立变量相互关系。能够量化两个变量的关系，但也要注意r并不代表一切，不同的数据选择方式，r值会大不一样，需要避免被r值“欺骗”。
+三是可视化很重要，用于表达展示重要的信息。如将摘要与散点图叠加，直方图与散点图并列显示，平滑变量与散点图叠加等。
 
 ***
 
