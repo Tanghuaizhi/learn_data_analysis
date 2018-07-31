@@ -141,3 +141,139 @@ ggplot(data = diamonds, aes(x = volume, y = price)) +
 2、体积大部分在200以内。
 3、价格大多在7500以内。
 4、体积在160以下时，体积与价格相关性十分明显。
+
+## Practice 11: 子集相关性
+
+### what's the correlation of price and volume? Exclude diamonds that have a volume of 0 or that are greater than or equal to 800
+
+0.92
+
+```{r}
+a <- subset(diamonds, volume != 0 & volume < 800)
+
+cor.test(a$volume, a$price)
+```
+
+## Practice 12: 调整-价格与体积
+
+Subset the data to exclude diamonds with a volume greater than or equal to 800. 
+Also, exclude diamonds with a volume of 0. 
+Adjust the transparency of the points and add a linear model to the plot. (See the Instructor Notes or look up the documentation of geom_smooth() for more details about smoothers.)
+
+We encourage you to think about this next question and to post your thoughts in the discussion section.
+
+### Do you think this would be a useful model to estimate the price of diamonds? Why or why not?
+看起来拟合程度不错。需要有方法进行评估。
+
+
+```{r}
+ggplot(data = a, aes(x = volume, y = price)) +
+  geom_point(alpha = 1/100) +
+  xlim(0, quantile(a$volume, 0.99)) +
+  ylim(0, quantile(a$price, 0.99)) +
+  geom_smooth(method = "lm", color = 'red')
+```
+
+
+## Practice 13: 平均价格-净度
+Use the function dplyr package to create a new data frame containing info on diamonds by clarity.
+
+Name the data frame diamondsByClarity 
+
+The data frame should contain the following variables in this order.
+       (1) mean_price
+       (2) median_price
+       (3) min_price
+       (4) max_price
+       (5) n
+       
+where n is the number of diamonds in each level of clarity.
+
+注意：如果你在进行此练习之前使用了 plyr 包中的 count() 函数，则需要运行以下命令卸载 plyr 包。 
+detach("package:plyr", unload=TRUE) 
+dplyr包。
+
+```{r}
+library(dplyr)
+
+diamondsByClarity <- diamonds %>%
+  group_by(clarity) %>%
+  summarise(mean_price = mean(price),
+            median_price = median(price),
+            min_price = min(price),
+            max_price = max(price),
+            n = n())
+
+```
+
+## Practice 14: 平均价格柱状图
+We’ve created summary data frames with the mean price by clarity and color. 
+You can run the code in R to verify what data is in the variables diamonds_mp_by_clarity and diamonds_mp_by_color.
+
+Your task is to write additional code to create two bar plots on one output image using the grid.arrange() function from the package gridExtra.
+
+This assignment is not graded and will be marked as correct when you submit.
+
+See the Instructor Notes for more info on bar charts and for a hint on this task.
+
+```{r}
+data(diamonds)
+library(dplyr)
+
+diamonds_by_clarity <- group_by(diamonds, clarity)
+diamonds_mp_by_clarity <- summarise(diamonds_by_clarity, mean_price = mean(price))
+
+diamonds_by_color <- group_by(diamonds, color)
+diamonds_mp_by_color <- summarise(diamonds_by_color, mean_price = mean(price))
+
+
+
+bar1 <- ggplot(data = diamonds_mp_by_clarity, aes(x = clarity, y = mean_price)) +
+  geom_col()
+bar2 <- ggplot(data = diamonds_mp_by_color, aes(x = color, y = mean_price)) +
+  geom_col()
+
+library(gridExtra)
+grid.arrange(bar1, bar2, ncol =1)
+
+```
+
+
+## Practice 15: 平均价格的趋势图
+
+### what do you notice in each of the bar charts for mean price by clarity and mean price by color?
+按纯度的价格是先上升后下降最后再上升，有一定波动;
+按颜色的价格是上升趋势，颜色越好价格越高.
+
+## Practice 16: 重访 Gapminder
+
+The Gapminder website contains over 500 data sets with information about the world's population. Your task is to continue the investigation you did at the end of Problem Set 3 or you can start fresh and choose a different data set from Gapminder.
+
+If you’re feeling adventurous or want to try some data munging see if you can find a data set or scrape one from the web.
+
+In your investigation, examine pairs of variable and create 2-5 plots that make use of the techniques from Lesson 4.
+
+You can find a link to the Gapminder website in the Instructor Notes.
+
+Once you've completed your investigation, create a post in the discussions that includes:
+       1. the variable(s) you investigated, your observations, and any summary statistics
+       2. snippets of code that created the plots
+       3. links to the images of your plots
+
+
+
+#### 获取全球农用地数据
+从Gapminder上下载全球农用地数据，并读入。
+
+```{r agriculture land data}
+getwd()
+dir()
+
+library(ggplot2)
+pf <- read.csv('agriculture_land.csv', header = TRUE, sep = ',')
+```
+
+#### 评估数据并清理
+网站上数据的质量是比较高的。
+拟采用目测评估的方式进行简单清理。
+此部分拟用python来完成。
