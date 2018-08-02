@@ -4,19 +4,36 @@ Lesson 5
 ### Multivariate Data
 Notes:
 
+
+```{r}
+library(ggplot2)
+pf <- read.csv('pseudo_facebook.tsv', sep = '\t')
+```
+
 ***
 
 ### Moira Perceived Audience Size Colored by Age
 Notes:
+提出了一个新问题，看看年龄的影响，也许年纪大的人猜得更准一些？
+尝试用颜色来区分，但用散点图表达出来后，发现效果并不理想。
 
 ***
 
 ### Third Qualitative Variable
 Notes:
+增加第三个定性变量。比如性别。
+查看平均年龄，发现并没有实质性差异。
+继续查看各年龄段好友数量，发现女性平均好友数量几乎都要比同年龄的男性多。
 
 ```{r Third Qualitative Variable}
+
 ggplot(aes(x = gender, y = age),
-       data = subset(pf, !is.na(gender))) + geom_histogram()
+       data = subset(pf, !is.na(gender))) + geom_boxplot() +
+  stat_summary(fun.y = mean, geom = 'point', shape =4)
+
+ggplot(aes(x = age, y = friend_count),
+       data = subset(pf, !is.na(gender))) + 
+  geom_line(aes(color = gender), stat = 'summary', fun.y = median) 
 ```
 
 ***
