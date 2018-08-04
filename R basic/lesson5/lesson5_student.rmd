@@ -36,19 +36,66 @@ ggplot(aes(x = age, y = friend_count),
   geom_line(aes(color = gender), stat = 'summary', fun.y = median) 
 ```
 
+Write code to create a new data frame, called 'pf.fc_by_age_gender', that contains
+information on each age AND gender group.
+
+The data frame should contain the following variables:
+
+  mean_friend_count,
+  median_friend_count,
+  n (the number of users in each age and gender grouping)
+
+Here is an example of the structure of your data frame. Your
+data values will be different. Note that if you are grouping by
+more than one variable, you will probably need to call the
+ungroup() function. 
+
+age gender mean_friend_count median_friend_count    n
+1  13 female          247.2953                 150  207
+2  13   male          184.2342                  61  265
+3  14 female          329.1938                 245  834
+4  14   male          157.1204                  88 1201
+
+See the Instructor Note for two hints.
+
+```{r}
+library(dplyr)
+pf.fc_by_age_gender <- pf %>% 
+  group_by(age, gender) %>% 
+  summarise(mean_friend_count = mean(friend_count),
+            median_friend_count = median(friend_count),
+            n = n()) 
+pf.fc_by_age_gender
+
+# anwser
+pf.fc_by_age_gender <- pf %>% 
+  filter(!is.na(gender)) %>%
+  group_by(age, gender) %>% 
+  summarise(mean_friend_count = mean(friend_count),
+            median_friend_count = median(friend_count),
+            n = n()) %>% 
+  ungroup() %>% 
+  arrange(age)
+pf.fc_by_age_gender
+  
+```
+
+
+
 ***
 
 ### Plotting Conditional Summaries
-Notes:
+Notes:显示每个性别随着年龄增加的好友数的中位数
 
 ```{r Plotting Conditional Summaries}
-
+ggplot(data = pf.fc_by_age_gender, aes(x = age, y = median_friend_count, color = gender)) + 
+  geom_line()
 ```
 
 ***
 
 ### Thinking in Ratios
-Notes:
+Notes:女性好友数量是男性好友数量的多少倍？
 
 ***
 
@@ -61,26 +108,63 @@ Notes:
 Notes:
 
 ```{r}
-install.packages('reshape2')
-library(reshape2)
+library(tidyr)
+pf.fc_by_age_gender.wide <- subset(pf.fc_by_age_gender[c('age', 'gender', 'median_friend_count')], 
+                                   !is.na(gender)) %>% 
+  spread(gender, median_friend_count) %>% 
+  mutate(ratio = male / female)
+
+pf.fc_by_age_gender.wide
 ```
 
 
 ***
 
 ### Ratio Plot
-Notes:
+Notes:绘制比例
 
+Plot the ratio of the female to male median
+friend counts using the data frame
+pf.fc_by_age_gender.wide.
+
+Think about what geom you should use.
+Add a horizontal line to the plot with
+a y intercept of 1, which will be the
+base line. Look up the documentation
+for geom_hline to do that. Use the parameter
+linetype in geom_hline to make the
+line dashed.
+
+The linetype parameter can take the values 0-6:
+0 = blank, 1 = solid, 2 = dashed
+3 = dotted, 4 = dotdash, 5 = longdash
+6 = twodash
 ```{r Ratio Plot}
-
+ggplot(data = pf.fc_by_age_gender.wide, aes(x = age, y = 1/ratio)) +
+  geom_line() +
+  geom_hline(yintercept = 1, color = 'red', alpha = 0.3, linetype = 2)
 ```
 
 ***
 
 ### Third Quantitative Variable
 Notes:
+新问题，随着时间推移，好友数量变化。需要同时表达四个变量，好友数、年龄、性别、tenure（期限）
 
+
+Create a variable called year_joined
+in the pf data frame using the variable
+tenure and 2014 as the reference year.
+
+The variable year joined should contain the year
+that a user joined facebook.
+
+See the Instructor Notes for three hints if you get
+stuck. Scroll down slowly to see one hint at a time
+if you would like some guidance.
 ```{r Third Quantitative Variable}
+pf$year_joined <- 2014 - ceiling(pf$tenure/365)
+
 
 ```
 
@@ -88,36 +172,101 @@ Notes:
 
 ### Cut a Variable
 Notes:
+先查看下数据的特征。
+切割产生不同区间的变量。
+
+Create a new variable in the data frame
+called year_joined.bucket by using
+the cut function on the variable year_joined.
+
+You need to create the following buckets for the
+new variable, year_joined.bucket
+
+       (2004, 2009]
+       (2009, 2011]
+       (2011, 2012]
+       (2012, 2014]
+
+Note that a parenthesis means exclude the year and a
+bracket means include the year.
+
+Look up the documentation for cut or try the link
+in the Instructor Notes to accomplish this task.
 
 ```{r Cut a Variable}
+summary(pf$year_joined)
+table(pf$year_joined)
 
+pf$year_joined.bucket <- cut(pf$year_joined, breaks = c(2004,2009, 2011, 2012, 2014))
+
+table(pf$year_joined.bucket)
 ```
 
 ***
 
 ### Plotting it All Together
 Notes:
+总结下前面：1、创建了一个year_joined的变量；2、转化为分类变量形成四组
+
+分类汇总
+
+Create a line graph of friend_count vs. age
+so that each year_joined.bucket is a line
+tracking the median user friend_count across
+age. This means you should have four different
+lines on your plot.
+
+You should subset the data to exclude the users
+whose year_joined.bucket is NA.
 
 ```{r Plotting it All Together}
+ggplot(data = subset(pf, !is.na(year_joined.bucket)), aes(x = age, y = friend_count)) +
+  geom_line(aes(color = year_joined.bucket), stat = 'summary', fun.y = median)
+  
 
 ```
 
 ***
 
 ### Plot the Grand Mean
-Notes:
+Notes:绘制总均值
+通过添加这样的线，从更高层次来理解数据意义。
+
+Write code to do the following:
+
+(1) Add another geom_line to code below
+to plot the grand mean of the friend count vs age.
+
+(2) Exclude any users whose year_joined.bucket is NA.
+
+(3) Use a different line type for the grand mean.
+
+As a reminder, the parameter linetype can take the values 0-6:
+
+0 = blank, 1 = solid, 2 = dashed
+3 = dotted, 4 = dotdash, 5 = longdash
+6 = twodash
 
 ```{r Plot the Grand Mean}
-
+ggplot(data = subset(pf, !is.na(year_joined.bucket)), aes(x = age, y = friend_count)) +
+  geom_line(aes(color = year_joined.bucket), stat = 'summary', fun.y = mean) +
+  geom_line(stat = 'summary', fun.y = mean, linetype = 2, alpha = 0.3, color = 'black')
 ```
 
 ***
 
 ### Friending Rate
 Notes:
+上图表明，好友数量的确与使用期限有关系。
+换一个视角再进一步查看使用期限和好友数量的关系。
 
 ```{r Friending Rate}
+summary(subset(pf, tenure >= 1) %>%
+  mutate(friend_rate = friend_count / tenure) %>% 
+  select(friend_rate))
 
+# anwser
+with(subset(pf, tenure >= 1), summary(friend_count / tenure))
 ```
 
 ***
@@ -126,17 +275,37 @@ Notes:
 Notes:
 
 What is the median friend rate?
-
+0.22
 What is the maximum friend rate?
+417
 
+
+
+Create a line graph of mean of friendships_initiated per day (of tenure)
+vs. tenure colored by year_joined.bucket.
+
+You need to make use of the variables tenure,
+friendships_initiated, and year_joined.bucket.
+
+You also need to subset the data to only consider user with at least
+one day of tenure.
 ```{r Friendships Initiated}
+pf_tenure <- subset(pf, tenure >= 1)
+ggplot(data = pf_tenure, aes(x = tenure, y = friendships_initiated / tenure)) +
+  geom_line(aes(color = year_joined.bucket), stat = 'summary', fun.y = mean)
 
+# anwser
+ggplot(data = subset(pf, tenure >= 1), aes(x = tenure, y = friendships_initiated / tenure)) +
+  geom_line(aes(color = year_joined.bucket))
 ```
+
+上图表明，随着时间迁移，越来越少的增加好友。
 
 ***
 
 ### Bias-Variance Tradeoff Revisited
 Notes:
+上图噪音过多。需处理。
 
 ```{r Bias-Variance Tradeoff Revisited}
 
@@ -166,10 +335,32 @@ ggplot(aes(x = 90 * round(tenure / 90), y = friendships_initiated / tenure),
 
 ```
 
+
+Instead of geom_line(), use geom_smooth() to add a smoother to the plot.
+You can use the defaults for geom_smooth() but do color the line
+by year_joined.bucket
+
+```{r}
+ggplot(aes(x = tenure, y = friendships_initiated / tenure),
+       data = subset(pf, tenure > 0)) +
+  geom_line(aes(color = year_joined.bucket),
+            stat = "summary",
+            fun.y = mean) +
+  geom_smooth(span = 0.3)
+
+#answer
+ggplot(aes(x = tenure, y = friendships_initiated / tenure),
+       data = subset(pf, tenure >= 1)) +
+  geom_smooth(aes(color = year_joined.bucket))
+```
+
+
 ***
 
 ### Sean's NFL Fan Sentiment Study
 Notes:
+图像要能很好的讲故事。
+如何处理方差，在连续性和离散型直接权衡，将会影响讲故事的效果。
 
 ***
 
@@ -182,16 +373,55 @@ Notes:
 Notes:
 
 ```{r Histograms Revisited}
+yo <- read.csv('yogurt.csv')
+str(yo)
 
+# 转换id变量，由int到factor
+yo$id <- factor(yo$id)
+
+ggplot(data = yo, aes(x = price)) + 
+  geom_histogram(bins = 10)
 ```
+
+what do you notice?
+低价格的少，高价格的多。
+有一些没有价格。
 
 ***
 
 ### Number of Purchases
 Notes:
+只是看数据的Summary，是很容易丢失数据离散分布信息的。
+
+合并数据传递函数。
 
 ```{r Number of Purchases}
+summary(yo)
+length(yo$price)
+table(yo$price)
 
+```
+
+Create a new variable called all.purchases,
+which gives the total counts of yogurt for
+each observation or household.
+
+One way to do this is using the transform
+function. You can look up the function transform
+and run the examples of code at the bottom of the
+documentation to figure out what it does.
+
+The transform function produces a data frame
+so if you use it then save the result to 'yo'!
+
+OR you can figure out another way to create the
+variable.
+
+```{r}
+
+yo <- transform(yo, all.purchases = (strawberry + blueberry + pina.colada + plain + mixed.berry))
+
+yo
 ```
 
 ***
@@ -199,47 +429,142 @@ Notes:
 ### Prices over Time
 Notes:
 
-```{r Prices over Time}
+Create a scatterplot of price vs time.
 
+This will be an example of a time series plot.
+
+Resolve overplotting issues by using
+techniques you learned in Lesson 4.
+
+用透明度和抖动的技巧来处理
+
+```{r Prices over Time}
+ggplot(data = yo, aes(x = time, y = price)) +
+  geom_jitter(alpha = 0.1)
+
+# answer
+ggplot(data = yo, aes(x = time, y = price)) +
+  geom_jitter(alpha = 1/4, shape = 21, fill = I('#F79420'))
 ```
+
+What are some things that you notice?
+结果表明，最常见的价格随时间变化在不断上升。
+出现散点的原因，可能是由于优惠或促销原因造成的。
 
 ***
 
 ### Sampling Observations
 Notes:
+针对统一设备的不同数据数据，采样方法会十分有效。
+便于显示该样品的原始数据。
+
+尝试将内部变化作为一个变量，可能会进行子样本分析。
 
 ***
 
 ### Looking at Samples of Households
+首先，设置种子功能，保证可重现
+然后，从数据集中抽取（注意用的是levels，是factor数据有的属性）
 
 ```{r Looking at Sample of Households}
+# set the seed for reproducible results
+set.seed(4230)
+sample.ids <- sample(levels(yo$id), 16)
 
+
+ggplot(data = subset(yo, id %in% sample.ids),
+       aes(x = time, y = price)) +
+  facet_wrap( ~ id) +
+  geom_line() + 
+  geom_point(aes(size = all.purchases), pch = 1)
 ```
+
+注意：x %in% y 返回一个长度与 x 相同的逻辑（布尔）向量，该向量指出 x 中的每一个条目是否都出现在 y 中。也就是说，对于 x 中的每一个条目，该向量都会检查这一条目是否也出现在 y 中。
+
+这样，我们就能将数据子集化，从而获得样本中住户的所有购买时机了。然后，我们通过样本 ID 创建价格与时间的散点图和分面。
+
+在绘制散点时，使用 pch 或 shape 参数来指定符号。向下滚动至 QuickR 图形参数的“绘制散点”部分。
+
 
 ***
 
 ### The Limits of Cross Sectional Data
 Notes:
+上述图的优势是，按案例或个体，进行分类的描述。
+但是，要求数据具有时间序列，Facebook的数据就不具备，因为它只是截面数据，而不是整年的动态数据。
+如果有了这样的时间数据，就可以用来描述交友的动态过程。
 
 ***
 
 ### Many Variables
 Notes:
+到目前为止，都是在单一或两个变量相关的基础上，根据我们的专业经验，提出问题，针对性的加入我们感兴趣的变量。
+但是，当有太多的变量时候，如果缺乏相应的经验，或缺乏时间去一一尝试，甚至提不出好问题，可以用整体可视化的方式进行数据探索。可以方便我们从数十甚至数百的变量中识别出来下一步分析要加入的辅助变量，或是将数据特征从多维度转为小维度的数据，亦或是从一大堆变量中找到他们之间的关系，发现有趣的部分。
 
 ***
 
 ### Scatterplot Matrix
 Notes:
+自动创建大量散点图的工具——散点图矩阵。
+注意散点图的限制，一般不适用于分类变量，这时需要用直方图或箱线图。
 
+需要注意的是，散点图矩阵并不会去做坐标轴转换等工作，因此往往用于数据探索的起点。
+
+
+```{r}
+#install.packages('GGally')
+library(GGally)
+theme_set(theme_minimal(20))
+
+# set the seed for reproducible results
+set.seed(1836)
+pf_subset <- pf[,c(2:15)]
+names(pf_subset)
+
+ggpairs(pf_subset[sample.int(nrow(pf_subset),1000),])
+```
+
+使用相同的数据样本，发起的好友请求和好友数之间的相关系数是什么？
+
+使用相同的数据样本，年龄和移动端点赞之间的相关系数是什么？
+
+哪种类型的图在散点图矩阵的对角线以下？哪种类型的图是为包括性别的变量对而创建的？
+
+这是 PDF 版本的散点图矩阵。
+
+你需要运行代码 install.packages('GGally') 来安装包，以创建此特定的散点图矩阵。
+
+如果图形需要很长时间才能呈现，或者如果你想查看散点图矩阵的其中一部分，你只需检查少量的变量。你可以使用以下代码或选择较少的变量。我们建议将性别（第 6 个变量）包含在内！ 
+
+pf_subset <- pf[ , c(2:7)] 
+
+你可能还会发现：变量标签是在散点图矩阵的外边缘上，而非对角线上。如果你希望标签在对角线上，你可以在 ggpairs 命令中设置 axisLabels = 'internal' 参数。
 ***
 
 ### Even More Variables
 Notes:
+当变量越多，散点矩阵发挥的作用也就越大。
+
+以基因数据为例。
+
+```{r}
+nci <- read.csv('nci.tsv', sep = '\t')  #有问题
+# answer
+nci <- read.table('nci.tsv')
+
+# changing the colnames to produce a nicer plot
+colnames(nci) <- c(1:64)
+
+```
 
 ***
 
 ### Heat Maps
 Notes:
+
+测试基因与样本的每个组合，基因表达差异和基线样品。
+用红色来表达over expressed，用蓝色来表达under expressed
+
 
 ```{r}
 nci <- read.table("nci.tsv")
@@ -247,6 +572,7 @@ colnames(nci) <- c(1:64)
 ```
 
 ```{r}
+library(reshape2)
 nci.long.samp <- melt(as.matrix(nci[1:200,]))
 names(nci.long.samp) <- c("gene", "case", "value")
 head(nci.long.samp)
@@ -262,6 +588,17 @@ ggplot(aes(y = gene, x = case, fill = value),
 
 ### Analyzing Three of More Variables
 Reflection:
+复盘下本课：
+（一）在两个变量相关分析基础上，尝试加入更多变量。
+1、首先是定性变量的增加。可以直接用颜色来区分。
+2、为了更精准描述，增加了比率数据，用了辅助线工具。这一过程中，需要用tidyr、dplyr包来进行数据reshape。
+3、然后是定量变量的增加。不能直接用颜色，需要进行转换，用到了cut()函数。转换成分组后，再用颜色区分。
+4、这一过程中发现数据偏差影响可视化分析结论，采用不同的偏差处理算法以及geom_smooth()来处理。
+值得注意的是，要多看看数据分布，光看数据的Summary，无疑会丢掉很多信息。而可视化数据时候一定要注意多试验几次，在离散性和连续性中权衡。
+5、连续变量形成新的连续变量时，transform()是一个简便方法。
+（二）数据量较大，尤其是时间序列数据时，采样是一个比较好的方法。用来发现不同个体或不同模式数据的规律。
+（三）当变量多达数十个，可采用散点矩阵的工具来辅助分析。
+（四）热图也是有个较为有用的工具。
 
 ***
 
