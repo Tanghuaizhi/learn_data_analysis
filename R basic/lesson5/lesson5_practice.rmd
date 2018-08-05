@@ -1,0 +1,235 @@
+---
+title: "lesson5 practice 探索多个变量"
+output: html_notebook
+---
+
+## P1:带有分面和颜色的价格直方图
+
+Create a histogram of diamond prices.
+Facet the histogram by diamond color
+and use cut to color the histogram bars.
+
+The plot should look something like this.
+http://i.imgur.com/b5xyrOu.jpg
+
+Note: In the link, a color palette of type
+'qual' was used to color the histogram using
+scale_fill_brewer(type = 'qual')
+
+创建钻石价格的直方图。
+用钻石颜色来描绘直方图，并使用切割为直方图条纹着色。
+图形看起来应该像这样http://i.imgur.com/b5xyrOu.jpg
+注意：在链接中，使用“qual”类型的调色板使用scale_fi11_brewer（type ='qual'）为直方图着色。
+
+```{r}
+getwd()
+setwd("D:/learn_data_analysis/R basic/lesson5")
+
+library(ggplot2)
+
+data(diamonds)
+
+ggplot(data = diamonds, aes(x = price)) +
+  geom_histogram(aes(fill = cut)) +
+  facet_wrap( ~ color) + 
+  scale_x_log10() +
+  scale_fill_brewer(type = 'qual')
+  
+
+```
+
+
+## P2:价格与按切工填色的表格
+
+注意各种细节配置。
+
+Create a scatterplot of diamond price vs.
+table and color the points by the cut of
+the diamond.
+
+The plot should look something like this.
+http://i.imgur.com/rQF9jQr.jpg
+
+Note: In the link, a color palette of type
+'qual' was used to color the scatterplot using
+scale_color_brewer(type = 'qual')
+
+```{r}
+ggplot(data = diamonds, aes(x = table, y = price)) +
+  geom_point(aes(color = cut), alpha = 1/5) +
+  scale_x_continuous(breaks = seq(50,80,2), limits = c(50,80)) +
+  scale_color_brewer(type = 'qual')
+```
+
+
+## P3:典型表值
+
+大多数完美idea切工钻石的典型表范围是多少？ 
+
+大多数优质premium切工钻石的典型表范围是多少？ 
+
+使用你在之前练习中创建的图表查看答案。无需进行汇总。
+
+
+## P4:价格与体积和钻石净度
+
+Create a scatterplot of diamond price vs.
+volume (x * y * z) and color the points by
+the clarity of diamonds. Use scale on the y-axis
+to take the log10 of price. You should also
+omit the top 1% of diamond volumes from the plot.
+
+Note: Volume is a very rough approximation of
+a diamond's actual volume.
+
+The plot should look something like this.
+http://i.imgur.com/excUpea.jpg
+
+Note: In the link, a color palette of type
+'div' was used to color the scatterplot using
+scale_color_brewer(type = 'div')
+
+
+```{r}
+diamonds <- transform(diamonds, volume = x * y * z)
+
+ggplot(data = subset(diamonds, volume > 0), aes(x = volume, y = price)) +
+  geom_point(aes(color = clarity)) +
+  scale_x_continuous(limits = c(0, 350)) +
+  scale_y_log10() +
+  scale_color_brewer(type = 'div')
+
+```
+
+
+## P5:新建友谊的比例
+
+一个有趣的问题，用新交友数来反映人的性格。
+
+Many interesting variables are derived from two or more others.
+For example, we might wonder how much of a person's network on
+a service like Facebook the user actively initiated. Two users
+with the same degree (or number of friends) might be very
+different if one initiated most of those connections on the
+service, while the other initiated very few. So it could be
+useful to consider this proportion of existing friendships that
+the user initiated. This might be a good predictor of how active
+a user is compared with their peers, or other traits, such as
+personality (i.e., is this person an extrovert?).
+
+Your task is to create a new variable called 'prop_initiated'
+in the Pseudo-Facebook data set. The variable should contain
+the proportion of friendships that the user initiated.
+
+```{r}
+pf <- read.csv('pseudo_facebook.tsv', sep = '\t')
+
+pf <- transform(pf, prop_initiated = friendships_initiated / friend_count)
+
+ggplot(data = pf, aes(x = prop_initiated)) +
+  geom_histogram()
+
+```
+
+
+## P6: prop_initiated 与使用时长
+
+Create a line graph of the median proportion of
+friendships initiated ('prop_initiated') vs.
+tenure and color the line segment by
+year_joined.bucket.
+
+Recall, we created year_joined.bucket in Lesson 5
+by first creating year_joined from the variable tenure.
+Then, we used the cut function on year_joined to create
+four bins or cohorts of users.
+
+(2004, 2009]
+(2009, 2011]
+(2011, 2012]
+(2012, 2014]
+
+The plot should look something like this.
+http://i.imgur.com/vNjPtDh.jpg
+OR this
+http://i.imgur.com/IBN1ufQ.jpg
+
+```{r}
+pf$year_joined <- 2014 - ceiling(pf$tenure/365)
+pf$year_joined.bucket <- cut(pf$year_joined, breaks = c(2004,2009, 2011, 2012, 2014))
+
+ggplot(data = pf, aes(x = tenure, y = prop_initiated)) +
+  geom_line(aes(color = year_joined.bucket), stat = 'summary', fun.y = median)
+```
+
+## P7: 平滑化 prop_initiated 与使用时长
+
+Smooth the last plot you created of
+of prop_initiated vs tenure colored by
+year_joined.bucket. You can bin together ranges
+of tenure or add a smoother to the plot.
+
+There won't be a solution image for this exercise.
+You will answer some questions about your plot in
+the next two exercises.
+
+```{r}
+ggplot(data = pf, aes(x = tenure, y = prop_initiated)) +
+  geom_line(aes(color = year_joined.bucket), stat = 'summary', fun.y = median) +
+  geom_smooth()
+
+ggplot(data = pf, aes(x = tenure, y = prop_initiated)) +
+  geom_smooth(aes(color = year_joined.bucket), linetype = 2)
+
+```
+
+
+## P8: 最大的 prop_initiated 组
+
+平均来说，哪个组发起的 Facebook 好友请求比例最大？你在上个练习中创建的带平滑器的图可以帮你回答这个问题。
+
+平均来说，哪个组发起的 Facebook 好友请求比例最大？你在上个练习中创建的带平滑器的图可以帮你回答这个问题。
+
+
+## P9: 最大的组均值 prop_initiated
+
+对于发起好友请求比例最大的组，这个组的平均（即均值）好友请求比例是多少？
+
+```{r}
+summary(subset(pf, pf$year_joined.bucket == '(2012,2014]')$prop_initiated)
+```
+
+你认为该组发起的好友请求比例大于其他组的原因是什么？
+新加入的好友数比较少
+
+
+## P10: 经过分组、分面和填色的价格/克拉
+
+Create a scatter plot of the price/carat ratio
+of diamonds. The variable x should be
+assigned to cut. The points should be colored
+by diamond color, and the plot should be
+faceted by clarity.
+
+The plot should look something like this.
+http://i.imgur.com/YzbWkHT.jpg.
+
+Note: In the link, a color palette of type
+'div' was used to color the histogram using
+scale_color_brewer(type = 'div')
+
+注意，添加抖动增加噪音
+
+```{r}
+diamonds <- transform(diamonds, ratio = as.numeric(price/carat))
+
+ggplot(data = diamonds, aes(x = cut, y = price/carat)) +
+  geom_jitter(aes(color = color)) +
+  facet_wrap( ~ clarity) +
+  scale_color_brewer(type = 'div')
+
+```
+
+
+## P11: Gapminder 多变量分析
+(略)
